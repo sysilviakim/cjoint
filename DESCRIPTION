@@ -12,7 +12,7 @@ Description: An R implementation of the Average Marginal Component-specific
     T. (2014) <DOI:10.1093/pan/mpt024> Causal Inference in Conjoint Analysis: Understanding Multi-Dimensional
     Choices via Stated Preference Experiments. Political Analysis 22(1):1-30.
 License: GPL (>= 2)
-RoxygenNote: 6.1.0
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 NeedsCompilation: no
 Packaged: 2018-10-19 03:07:02 UTC; anton

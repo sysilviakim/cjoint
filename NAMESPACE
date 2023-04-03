@@ -33,10 +33,3 @@ importFrom(stats,var)
 importFrom(stats,vcov)
 importFrom(utils,packageDescription)
 importFrom(utils,read.csv)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(graphics,plot)
-importFrom(utils,View)
-importFrom(utils,data)
-  
-  
