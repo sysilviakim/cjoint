@@ -5,6 +5,7 @@
 #' @importFrom graphics plot
 #' @importFrom utils View
 #' @importFrom utils data
+#' @importFrom stats as.formula
 #' @export view
 
 ## view(amce): R Shiny exploratory visualization tool that ships with `amce`;
@@ -301,7 +302,8 @@ view <- function(object) {
           verbatimTextOutput("results_summary"),
           tags$style(
             type = "text/css",
-            "#results_summary {max-height: 1000px; overflow-y:scroll; }"),
+            "#results_summary {max-height: 1000px; overflow-y:scroll; }"
+          ),
           sliderInput("sigdigits",
             HTML("<small>Significant digits:</small>"),
             min = 1,
@@ -328,8 +330,8 @@ view <- function(object) {
             "plotFontFamily",
             HTML(
               paste0(
-                "<small>Font family ", 
-                "(specify if non-latin characters do not render, ", 
+                "<small>Font family ",
+                "(specify if non-latin characters do not render, ",
                 "else leave blank):</small>"
               )
             )

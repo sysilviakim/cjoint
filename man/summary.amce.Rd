@@ -2,10 +2,29 @@
 % Please edit documentation in R/summary_amce.R
 \name{summary.amce}
 \alias{summary.amce}
-\title{Summary Function for Results of Main AMCE Function}
+\title{Summarizing AMCE Estimates}
 \usage{
 \method{summary}{amce}(object, covariate.values = NULL, ...)
 }
+\arguments{
+\item{object}{An object of class "amce", a result of a call to \link{amce}.}
+
+\item{covariate.values}{An optional list containing a vector at which
+conditional effects will be calculated in the case of AMCE and ACIE's 
+conditional on respondent-varying characteristics. 
+The class of the values in the vector must match the class of the 
+respondent-varying characteristic in question. If the "amce" object 
+contains respondent varying characteristics, when set to NULL (default) 
+interaction effects will be reported at quantiles in the case of a 
+continuous variable and levels in the case of a factor. Names of list 
+entries must correspond to variable names. If there are multiple 
+respondent-varying characteristics then while each is varied in turn, 
+all others will be held at first value of their entry in covariate.values. 
+This is the bottom quantile in the case of a continuous variable and the 
+baseline in the case of a factor variable.}
+
+\item{...}{Further arguments from other methods.}
+}
 \description{
-Summary Function for Results of Main AMCE Function
+Summarizing AMCE Estimates
 }

@@ -1,4 +1,7 @@
 #' Dependencies
+#' 
+#' @param J Input attribute
+#' @param tol Tolerance
 
 compute_dependencies <- function(J, tol = 1e-14) {
   # Get attribute names

@@ -2,6 +2,8 @@
 #'
 #' A function for removing ALL punctuation, symbols, and spaces from string
 #' from elements of vector "vec"
+#' 
+#' @param str String to be cleaned.
 
 clean.names <- function(str) {
   # split components of interactions

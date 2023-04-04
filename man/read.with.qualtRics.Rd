@@ -14,6 +14,43 @@ read.with.qualtRics(
   ranks = NULL
 )
 }
+\arguments{
+\item{filename}{A dataframe containing responses download from a Qualtrics 
+survey experiment with R package "qualtRics". Each row contains the answers 
+of each respondent. Note that answers should be shown as "coded values" 
+and not as choice text.}
+
+\item{responses}{A character or integer vector with the identifiers of the 
+CSV columns that contain the conjoint responses. The first element 
+corresponds to the identifier of the first question, the second element 
+corresponds to the second question and so on. The length of this vector 
+must be equal to the number of conjoint tasks answered by each respondent. 
+Identifiers are typically in the form "Q#" - e.g. c("Q1", "Q3", "Q5") 
+would represent a three question survey where the conjoint questions 
+are Q1, Q3 and Q5. If specified as an integer vector, the elements are the 
+column numbers corresponding to each question response.}
+
+\item{covariates}{A character vector denoting the column names of any other 
+respondent-level characteristics measured in the survey that should be 
+included in the resulting dataframe.}
+
+\item{respondentID}{A character string denoting a column containing a 
+unique identifier for each respondent (e.g. an IP address). 
+This identifier will be carried over into the output. If NULL, 
+each respondent will be given an arbitrary identifier in the output 
+dataframe. Leave as NULL if you do not want responses to be linked back to 
+a known respondent identifier.}
+
+\item{letter}{The beginning letter used in the naming convention of 
+levels and attributes.}
+
+\item{new.format}{Indicator for whether the .csv file is from the new
+Qualtrics export format with three title rows (TRUE) or from the old 
+format (FALSE) with two title rows. Defaults to FALSE.}
+
+\item{ranks}{An integer vector with the identifiers of the CSV columns 
+that contain the conjoint rankings or ratings.}
+}
 \description{
 Read in Qualtrics Data (The Output from qualtRics Package)
 }

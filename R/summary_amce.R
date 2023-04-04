@@ -1,4 +1,4 @@
-#' Summary Function for Results of Main AMCE Function
+#' Summarizing AMCE Estimates
 
 # Function for summarizing output from main amce function
 # LIST given to "covariate.values" contains VECTORS at which ...
@@ -7,6 +7,24 @@
 # ... can be given manual names by naming entries
 # Note that must be NAMED LIST, entry name is the respondent.varying effect
 
+#' @param object An object of class "amce", a result of a call to \link{amce}.
+#' 
+#' @param covariate.values An optional list containing a vector at which  
+#' conditional effects will be calculated in the case of AMCE and ACIE's 
+#' conditional on respondent-varying characteristics. 
+#' The class of the values in the vector must match the class of the 
+#' respondent-varying characteristic in question. If the "amce" object 
+#' contains respondent varying characteristics, when set to NULL (default) 
+#' interaction effects will be reported at quantiles in the case of a 
+#' continuous variable and levels in the case of a factor. Names of list 
+#' entries must correspond to variable names. If there are multiple 
+#' respondent-varying characteristics then while each is varied in turn, 
+#' all others will be held at first value of their entry in covariate.values. 
+#' This is the bottom quantile in the case of a continuous variable and the 
+#' baseline in the case of a factor variable.
+#' 
+#' @param ... Further arguments from other methods.
+#' 
 #' @method summary amce
 #' @export summary.amce
 #' @export
@@ -477,4 +495,170 @@ summary.amce <- function(object, covariate.values = NULL, ...) {
 
   # Return
   return(summary_results)
+}
+
+#' Printing Summaries of AMCE Estimates
+#' 
+#' @param x An object of class "summary.amce", 
+#' a result of a call to summary.amce.
+#' @param digits The number of significant digits to use when printing.
+#' @param ... Further arguments from other methods.
+#' 
+#' @method print summary.amce
+#' @export print.summary.amce
+#' @export
+
+print.summary.amce <- function(x, digits = 5, ...) {
+  summary_result <- x
+  
+  # basic print for AMCE
+  cat("------------------------------------------\n")
+  cat("Average Marginal Component Effects (AMCE):\n")
+  cat("------------------------------------------\n")
+  print(summary_result$amce, digits = digits, row.names = F)
+  cat("---\n")
+  cat(paste0("Number of Obs. = ", summary_result$samplesize_estimates))
+  cat("\n")
+  cat("---\n")
+  if (!is.null(summary_result$respondents)) {
+    cat(paste0("Number of Respondents = ", summary_result$respondents))
+    cat("\n")
+    cat("---\n")
+  }
+  
+  # add extra tables for AMCE interactions with respondent varying
+  if (!is.null(summary_result$table_values_amce)) {
+    if (nrow(summary_result$table_values_amce) > 0) {
+      all.vars <- unique(summary_result$table_values_amce[, 2])
+      for (i in 1:nrow(summary_result$table_values_amce)) {
+        # How to print changing level
+        print.lev <- paste(
+          c(
+            "Conditional AMCE's ", "(",
+            summary_result$table_values_amce[i, 2], " = ",
+            summary_result$table_values_amce[i, 3]
+          ),
+          collapse = ""
+        )
+        # How to print stable level
+        if (length(all.vars) > 1) {
+          this.var <- summary_result$table_values_amce[i, 2]
+          other.vars <- all.vars[!is.element(all.vars, this.var)]
+          for (x in other.vars) {
+            lev <- summary_result$table_values_amce[
+              summary_result$table_values_amce[, "Level.Name"] == x,
+              "Level.Value"
+            ][1]
+            print.lev <- paste(c(print.lev, "; ", x, " = ", lev), collapse = "")
+          }
+        }
+        print.lev <- paste(c(print.lev, "):\n"), collapse = "")
+        
+        cat("------------------------------------------------------------\n")
+        cat(print.lev)
+        cat("------------------------------------------------------------\n")
+        print(
+          summary_result[[summary_result$table_values_amce[i, 1]]],
+          digits = digits, row.names = F
+        )
+        cat("---\n")
+        cat(paste0("Number of Obs. = ", summary_result$samplesize_resp))
+        cat("\n")
+        if (!is.null(summary_result$respondents)) {
+          cat(paste("Number of Respondents = ", summary_result$respondents))
+          cat("\n")
+        }
+        cat("---\n")
+        cat("Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05")
+        cat("\n")
+        cat("\n")
+      }
+    }
+  }
+  
+  # print AMCE baselines
+  cat("Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05")
+  cat("\n")
+  cat("\n")
+  cat("--------------------\n")
+  cat("AMCE Baseline Levels:\n")
+  cat("--------------------\n")
+  print(summary_result$baselines_amce, row.names = F)
+  cat("\n")
+  cat("\n")
+  
+  
+  # Tables for UNCONDITIONAL interaction
+  if (!is.null(summary_result$acie)) {
+    cat("---------------------------------------------\n")
+    cat("Average Component Interaction Effects (ACIE):\n")
+    cat("---------------------------------------------\n")
+    print(summary_result$acie, digits = digits, row.names = F)
+    cat("---\n")
+    cat(paste0("Number of Obs. = ", summary_result$samplesize_estimates))
+    cat("\n")
+    if (!is.null(summary_result$respondents)) {
+      cat(paste0("Number of Respondents = ", summary_result$respondents))
+      cat("\n")
+    }
+  }
+  
+  # add extra tables for ACIE interactions with respondent varying
+  if (!is.null(summary_result$table_values_acie)) {
+    if (nrow(summary_result$table_values_acie) > 0) {
+      for (i in 1:nrow(summary_result$table_values_acie)) {
+        cat("------------------------------------------------------------\n")
+        cat(
+          paste(
+            c(
+              "Conditional ACIE's",
+              "(",
+              summary_result$table_values_acie[i, 2],
+              "=",
+              summary_result$table_values_acie[i, 3],
+              "):\n"
+            ),
+            collapse = " "
+          )
+        )
+        cat("------------------------------------------------------------\n")
+        print(
+          summary_result[[summary_result$table_values_acie[i, 1]]],
+          digits = digits, row.names = F
+        )
+        cat("---\n")
+        cat(
+          paste0("Number of Obs. = ", summary_result$samplesize_resp)
+        )
+        cat("\n")
+        if (!is.null(summary_result$respondents)) {
+          cat(
+            paste0(
+              "Number of Respondents = ",
+              summary_result$respondents
+            )
+          )
+          cat("\n")
+        }
+        cat("---\n")
+        cat("Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05")
+        cat("\n")
+        cat("\n")
+      }
+    }
+  }
+  
+  # baselines for ACIE
+  if (!is.null(summary_result$acie)) {
+    cat("---\n")
+    cat("Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05")
+    cat("\n")
+    cat("\n")
+    cat("--------------------\n")
+    cat("ACIE Baseline Levels:\n")
+    cat("--------------------\n")
+    print(summary_result$baselines_acie, row.names = F)
+    cat("\n")
+    cat("\n")
+  }
 }

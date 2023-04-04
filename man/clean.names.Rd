@@ -6,6 +6,9 @@
 \usage{
 clean.names(str)
 }
+\arguments{
+\item{str}{String to be cleaned.}
+}
 \description{
 A function for removing ALL punctuation, symbols, and spaces from string
 from elements of vector "vec"

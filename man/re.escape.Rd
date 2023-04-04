@@ -2,10 +2,13 @@
 % Please edit documentation in R/read_qualtrics.R
 \name{re.escape}
 \alias{re.escape}
-\title{Read in Qualtrics Data}
+\title{Replace Values for Escape Expressions}
 \usage{
 re.escape(strings)
 }
+\arguments{
+\item{strings}{Input strings}
+}
 \description{
-Read in Qualtrics Data
+Replace Values for Escape Expressions
 }

@@ -12,6 +12,19 @@ get.conditional.effects(
   mod.var
 )
 }
+\arguments{
+\item{object}{AMCE object}
+
+\item{conditional.levels}{List containing levels 
+at which conditional effects will be calculated}
+
+\item{current.effect}{Name of current conditional variable}
+
+\item{current.level}{Value of current level of current conditioning variable}
+
+\item{mod.var}{Name of profile attribute being modified by 
+conditioning variable}
+}
 \description{
 Getting conditional estimates given
 (1) AMCE object

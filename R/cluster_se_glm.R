@@ -1,10 +1,9 @@
 #' Clustered Standard Errors
 #'
-#' @import ggplot2
-#' @import lmtest
-#' @import Matrix
+#' @param model Input model
+#' @param cluster Cluster variable
+#' 
 #' @import sandwich
-#' @import survey
 #' @importFrom utils read.csv packageDescription
 
 cluster_se_glm <- function(model, cluster) {

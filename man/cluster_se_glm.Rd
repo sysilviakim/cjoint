@@ -6,6 +6,11 @@
 \usage{
 cluster_se_glm(model, cluster)
 }
+\arguments{
+\item{model}{Input model}
+
+\item{cluster}{Cluster variable}
+}
 \description{
 Clustered Standard Errors
 }

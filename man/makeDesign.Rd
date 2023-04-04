@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeDesign.R
 \name{makeDesign}
 \alias{makeDesign}
-\title{Make a Design Matrix}
+\title{Create Conjoint Design}
 \usage{
 makeDesign(
   type = "file",
@@ -14,6 +14,69 @@ makeDesign(
   tol = 1e-14
 )
 }
+\arguments{
+\item{type}{A character string - either "file", "constraints", or "array".
+Each option requires a different set of additional arguments. 
+If "file", the user must specify a filename of a ".dat" file exported 
+via the Conjoint Survey Design Tool. If "constraints," the user must 
+provide a list of attributes and levels in "attribute.levels" along with 
+any constraints in "constraints" and attribute randomization weights in 
+"level.probs". If "array," the user must pass an array to J.}
+
+\item{J}{If type = "array", makeDesign requires a d-dimensional array 
+to be passed to J where d is the number of attributes in a single profile. 
+Each dimension should have a number of indices corresponding to the number 
+of levels for that attribute. Attribute and level names are taken from the 
+dimnames of the array (level names are taken from the list elements, 
+attribute names are taken from the names of the elements). 
+Each cell of the array is the joint probability of assigning that 
+particular profile (combination of attribute-levels).}
+
+\item{filename}{If type="file", this is a character string giving the
+name of a design file exported from the Conjoint Survey Design Tool 
+using the "Export design to R" option.}
+
+\item{attribute.levels}{If type = "constraints", attribute.levels is a 
+required argument. This takes a named list with each element containing a 
+character vector with the level names of a single attribute. The names 
+of the elements should be the attribute names.}
+
+\item{constraints}{If type = "constraints", this is an optional argument. 
+A list of lists. Each element list is a "restriction" and describes a set 
+of restricted profiles (attribute-level groupings that cannot be displayed 
+to a respondent) with character vectors containing the attribute-levels 
+that cannot be displayed together. If your design prevents certain 
+profiles from being seen by respondents (for example, if the particular 
+profile would be highly impluasible), this argument allows you to specify 
+those restrictions. Each element of a restriction is a character vector of 
+levels for a particular attribute. That element must have the name of one 
+of the attributes. For each specified restriction, makeDesign will treat 
+any profile containing any combination of the restricted levels as having 
+zero probability of being displayed. For example, if a restriction 
+contains two elements: A = c("1","2") and B = c("4", "5"), then any 
+profiles containing levels 1 or 2 of attribute A and levels 4 or 5 of 
+attribute B will restricted from the design.}
+
+\item{level.probs}{If type = "constraints", this is an optional argument. 
+A named list containing numeric vector elements. 
+Each list element should have the name of one of the attributes passed 
+in attribute.levels and the numeric vector it contains should have 
+the names of the corresponding levels. Each element of the numeric vector 
+specifies the marginal probability of that level appearing in a profile 
+before any restricted profiles are eliminated. Each of the vectors 
+should sum to 1. If NULL, then uniform randomization is assumed 
+(excluding constrained profiles).}
+
+\item{tol}{A very small non-zero number used in the routine for 
+determining which attributes are dependent (the distribution of 
+one attribute depends on the value of another attribute). 
+Two attributes are independent if the distribution of one attribute 
+does not change conditional on the other - this is calculated 
+automatically through the J matrix Do not change unless you are 
+having issues with makeDesign incorrectly labeling independent attributes 
+as dependent (in which case, lower the value) or incorrectly labeling 
+dependent attributes as independent (in which case, raise the value).}
+}
 \description{
-Make a Design Matrix
+Create Conjoint Design
 }

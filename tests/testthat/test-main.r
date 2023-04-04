@@ -182,7 +182,8 @@ test_that("Warning for missing base terms added.", {
   expect_warning(
     amce(
       Chosen_Immigrant ~ Gender:Education,
-      data = immigrationconjoint
+      data = immigrationconjoint,
+      cluster = FALSE
     ),
     "Missing base terms for interactions added to formula."
   )

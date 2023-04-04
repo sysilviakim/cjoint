@@ -6,6 +6,14 @@
 #' (3) NAME of current conditional variable
 #' (4) VALUE of current level of current conditioning variable
 #' (5) NAME of profile attribute being modified by conditioning variable
+#' 
+#' @param object AMCE object
+#' @param conditional.levels List containing levels 
+#' at which conditional effects will be calculated
+#' @param current.effect Name of current conditional variable
+#' @param current.level Value of current level of current conditioning variable
+#' @param mod.var Name of profile attribute being modified by 
+#' conditioning variable
 
 get.conditional.effects <- function(object,
                                     conditional.levels,

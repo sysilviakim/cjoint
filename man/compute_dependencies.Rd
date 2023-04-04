@@ -6,6 +6,11 @@
 \usage{
 compute_dependencies(J, tol = 1e-14)
 }
+\arguments{
+\item{J}{Input attribute}
+
+\item{tol}{Tolerance}
+}
 \description{
 Dependencies
 }
