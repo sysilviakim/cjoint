@@ -1,8 +1,10 @@
-'.onAttach' <- function(lib, pkg) {
-  #mylib <- dirname(system.file(package = pkg))
+".onAttach" <- function(lib, pkg) {
+  # mylib <- dirname(system.file(package = pkg))
   mylib <- lib
   title <- packageDescription(pkg, lib.loc = mylib)["Title"]
   ver <- packageDescription(pkg, lib.loc = mylib)["Version"]
   author <- packageDescription(pkg, lib.loc = mylib)["Author"]
-  packageStartupMessage(pkg, ": ", title, "\nVersion: ", ver, "\nAuthors: ", author, "\n")
+  packageStartupMessage(
+    pkg, ": ", title, "\nVersion: ", ver, "\nAuthors: ", author, "\n"
+  )
 }
