@@ -73,7 +73,7 @@ plot.amce <- function(x,
       base_coef <- paste0(c(elem, amce_obj$baselines[[elem]]), collapse = "")
       baseline_interactions <- c(baseline_interactions, base_coef)
     }
-    interaction_str <- paste0(baseline_interactions, sep = "", collapse = ":")
+    interaction_str <- paste0(baseline_interactions, collapse = ":")
     raw_levels[[effect]] <- c(interaction_str, raw_levels[[effect]])
   }
 
@@ -100,8 +100,7 @@ plot.amce <- function(x,
           " does not match the attributes in amce object ",
           "for which estimates were obtained: ",
           paste0(raw_attributes, collapse = ", "),
-          "\n",
-          sep = ""
+          "\n"
         )
       )
       cat("Defaulting attribute.names to attribute names in AMCE object\n")
@@ -119,16 +118,14 @@ plot.amce <- function(x,
             paste0(
               "Error: level.names lengths do not match levels for attribute ",
               name,
-              "\n",
-              sep = ""
+              "\n"
             )
           )
           cat(
             paste0(
               "Defaulting level.names for attribute ",
               name,
-              " to level names in AMCE object", "\n",
-              sep = ""
+              " to level names in AMCE object", "\n"
             )
           )
           level.names[[name]] <- NULL
@@ -139,8 +136,7 @@ plot.amce <- function(x,
             "Error: level.names entry ",
             name,
             " not in AMCE object. Removing level.names for attribute.",
-            "\n",
-            sep = ""
+            "\n"
           )
         )
         level.names[[name]] <- NULL
@@ -148,7 +144,8 @@ plot.amce <- function(x,
     }
   }
 
-  # If no attribute name or changed to NULL, use initial user supplied names as attribute names
+  # If no attribute name or changed to NULL,
+  # use initial user supplied names as attribute names
   if (is.null(attribute.names)) {
     attribute.names <- c()
     for (attr in names(amce_obj$estimates)) {
@@ -192,7 +189,7 @@ plot.amce <- function(x,
     stop(
       paste0(
         c(
-          "Error: plot.display must be once of: ",
+          "Error: plot.display must be once of:",
           paste0(plot.display.opts, collapse = ", ")
         ),
         collapse = " "
@@ -298,7 +295,7 @@ plot.amce <- function(x,
         # names from user input if none provided
         if (is.null(names(facet.levels[[facet.name]]))) {
           fac.levs <- sapply(
-            facet.levels[[facet.name]], function(x) paste0(facet.name, x, sep = "")
+            facet.levels[[facet.name]], function(x) paste0(facet.name, x)
           )
           names(facet.levels[[facet.name]]) <- sapply(
             fac.levs,
@@ -334,7 +331,7 @@ plot.amce <- function(x,
           c(amce_obj$baselines[[facet.name]], facet.levels[[facet.name]])
         # names from user input
         fac.levs <- c(
-          paste0(facet.name, amce_obj$baselines[[facet.name]], sep = ""),
+          paste0(facet.name, amce_obj$baselines[[facet.name]]),
           fac.levs
         )
         names(facet.levels[[facet.name]]) <-
@@ -405,7 +402,7 @@ plot.amce <- function(x,
         upper = NA,
         lower = NA,
         var = attr_name,
-        printvar = paste0(print_attr_name, ":", sep = ""),
+        printvar = paste0(print_attr_name, ":"),
         group = "<NA>",
         facet = uncond.facet.name
       )
@@ -419,10 +416,7 @@ plot.amce <- function(x,
         # if on the first level
         if (j == 1) {
           if (label.baseline) {
-            print_level_name <- paste0(
-              "(Baseline = ", print_level_name, ")",
-              sep = ""
-            )
+            print_level_name <- paste0("(Baseline = ", print_level_name, ")")
           }
           # get the baseline and print a blank line
           d_lev <- data.frame(
@@ -431,7 +425,7 @@ plot.amce <- function(x,
             upper = NA,
             lower = NA,
             var = level_name,
-            printvar = paste0("   ", print_level_name, sep = ""),
+            printvar = paste0("   ", print_level_name),
             group = print_attr_name,
             facet = uncond.facet.name
           )
@@ -449,7 +443,7 @@ plot.amce <- function(x,
             upper = upper_bnd,
             lower = lower_bnd,
             var = level_name,
-            printvar = paste0("   ", print_level_name, sep = ""),
+            printvar = paste0("   ", print_level_name),
             group = print_attr_name,
             facet = uncond.facet.name
           )
@@ -550,7 +544,7 @@ plot.amce <- function(x,
             upper = NA,
             lower = NA,
             var = mod_var,
-            printvar = paste0(print_attr_name, ":", sep = ""),
+            printvar = paste0(print_attr_name, ":"),
             group = "<NA>", facet = print_facet_level
           )
           # add new header
@@ -591,8 +585,7 @@ plot.amce <- function(x,
             if (p == 1) {
               if (label.baseline) {
                 print_level_name <- paste0(
-                  "(Baseline = ", print_level_name, ")",
-                  sep = ""
+                  "(Baseline = ", print_level_name, ")"
                 )
               }
               d_lev <- data.frame(
@@ -601,7 +594,7 @@ plot.amce <- function(x,
                 upper = NA,
                 lower = NA,
                 var = mod_coef,
-                printvar = paste0("   ", print_level_name, sep = ""),
+                printvar = paste0("   ", print_level_name),
                 group = print_attr_name, facet = print_facet_level
               )
             } else {
@@ -622,7 +615,7 @@ plot.amce <- function(x,
                 upper = upper_bnd,
                 lower = lower_bnd,
                 var = mod_coef,
-                printvar = paste0("   ", print_level_name, sep = ""),
+                printvar = paste0("   ", print_level_name),
                 group = print_attr_name, facet = print_facet_level
               )
             }
