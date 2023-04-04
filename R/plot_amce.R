@@ -16,69 +16,69 @@
 
 #' @param x An object of class "amce", a result of a call to amce
 #' @param main Title of the plot.
-#' @param xlab Label of the x-axis of the plot (AMCE or ACIE). 
+#' @param xlab Label of the x-axis of the plot (AMCE or ACIE).
 #' Default is "Change in E[Y]"
-#' @param ci Levels for confidence intervals to plot around point estimates. 
+#' @param ci Levels for confidence intervals to plot around point estimates.
 #' Must be between 0 and 1. Default is .95
-#' @param colors Vector of color names to be used for points and 
-#' confidence intervals. The plot function will alternate between the colors 
-#' in the vector for each attribute being plotted. 
+#' @param colors Vector of color names to be used for points and
+#' confidence intervals. The plot function will alternate between the colors
+#' in the vector for each attribute being plotted.
 #' If NULL, plot will use a default ggplot2 color scheme.
-#' @param xlim Numeric vector denoting the upper and lower bounds of the 
-#' x-axis in the plot. If NULL the plot function will automatically set a 
+#' @param xlim Numeric vector denoting the upper and lower bounds of the
+#' x-axis in the plot. If NULL the plot function will automatically set a
 #' range that includes all effect estimates.
-#' @param breaks Numeric vector denoting where x-axis tick marks should be 
+#' @param breaks Numeric vector denoting where x-axis tick marks should be
 #' placed. If NULL plot will use ggplot2 defaults.
-#' @param labels Vector denoting how x-axis tick marks should be labeled. 
+#' @param labels Vector denoting how x-axis tick marks should be labeled.
 #' If NULL plot will use ggplot2 defaults.
-#' @param attribute.names Character vector of attribute names to be plotted as  
-#' labels. By default plot.amce will use the attribute names in the "amce" 
+#' @param attribute.names Character vector of attribute names to be plotted as
+#' labels. By default plot.amce will use the attribute names in the "amce"
 #' object passed to it.
-#' @param level.names A list containing character vector elements with names 
-#' in attribute.names. Each character vector in the list contains the level 
-#' names to be plotted as labels beneath the corresponding attribute. 
-#' By default plot.amce will use the level names in the "amce" object 
+#' @param level.names A list containing character vector elements with names
+#' in attribute.names. Each character vector in the list contains the level
+#' names to be plotted as labels beneath the corresponding attribute.
+#' By default plot.amce will use the level names in the "amce" object
 #' passed to it.
-#' @param label.baseline If TRUE, the baseline levels for each attribute will 
+#' @param label.baseline If TRUE, the baseline levels for each attribute will
 #' be labeled as such. Defaults to TRUE.
 #' @param text.size	Size of text. Defaults to 11.
 #' @param text.color Color of text in plot. Defaults to "black".
 #' @param point.size Size of points in the plot. Defaults to 0.5.
 #' @param dodge.size Width to dodge overlaps to the side. Defaults to 0.9.
-#' @param plot.theme A ggplot2 'theme' object to be added to the plot. 
-#' If NULL, defaults to black-and-white theme. Note that passing a theme 
+#' @param plot.theme A ggplot2 'theme' object to be added to the plot.
+#' If NULL, defaults to black-and-white theme. Note that passing a theme
 #' object will override text and point color/size options.
-#' @param plot.display Character string, one of "all", "unconditional", or 
-#' "interaction". Option "all" will display both unconditional and interaction 
-#' estimates. The "unconditional" option will display only 1 plot for 
-#' unconditional estimates (both AMCE and ACIE) ignoring any facets provided 
-#' to "facet.names" or respondent-varying characteristics. 
-#' Option "interaction" will drop the unconditional plot and instead display 
-#' only (unconditional) ACIE's or estimates conditional on respondent-varying 
-#' characteristics as specified in the user-supplied option "facet.names". 
+#' @param plot.display Character string, one of "all", "unconditional", or
+#' "interaction". Option "all" will display both unconditional and interaction
+#' estimates. The "unconditional" option will display only 1 plot for
+#' unconditional estimates (both AMCE and ACIE) ignoring any facets provided
+#' to "facet.names" or respondent-varying characteristics.
+#' Option "interaction" will drop the unconditional plot and instead display
+#' only (unconditional) ACIE's or estimates conditional on respondent-varying
+#' characteristics as specified in the user-supplied option "facet.names".
 #' Defaults to "all".
-#' @param facet.names To facet plots (i.e., make separate plots for each 
-#' value of a variable) give "facet.names" a vector of character strings 
-#' containing the names of the variable(s) (either profile attribute or 
-#' respondent-varying) to facet by. Unless given specific levels in 
-#' "facet.levels", the plotted levels will consist of all levels of a factor 
-#' variable or the quantiles of a continuous variable. Multiple facet 
-#' variables cannot currently be varied at the same time within the same plot. 
-#' Instead conditional effects will be calculated for one facet at a time 
-#' while others are held at their first value in facet.levels, by default 
+#' @param facet.names To facet plots (i.e., make separate plots for each
+#' value of a variable) give "facet.names" a vector of character strings
+#' containing the names of the variable(s) (either profile attribute or
+#' respondent-varying) to facet by. Unless given specific levels in
+#' "facet.levels", the plotted levels will consist of all levels of a factor
+#' variable or the quantiles of a continuous variable. Multiple facet
+#' variables cannot currently be varied at the same time within the same plot.
+#' Instead conditional effects will be calculated for one facet at a time
+#' while others are held at their first value in facet.levels, by default
 #' the bottom quantile for continuous variables and the baseline for factors.
-#' @param facet.levels To manually set facet levels, provide a list to 
-#' "facet.levels". Names of list entries should correspond with variable 
-#' names. The content of each entry should be a vector giving the desired 
-#' levels, whether factors or continuous. To change the displayed names of 
+#' @param facet.levels To manually set facet levels, provide a list to
+#' "facet.levels". Names of list entries should correspond with variable
+#' names. The content of each entry should be a vector giving the desired
+#' levels, whether factors or continuous. To change the displayed names of
 #' the levels, assign names to each vector entry.
-#' @param group.order To manually set the order of the attributes, provide 
-#' a vector to "group.order". Names of the vector entries should correspond 
+#' @param group.order To manually set the order of the attributes, provide
+#' a vector to "group.order". Names of the vector entries should correspond
 #' with name of the attribute.
-#' @param font.family	Will be passed to the ggplot function as the argument 
+#' @param font.family	Will be passed to the ggplot function as the argument
 #' for font.family. If NULL, defaults will be used.
 #' @param ...	Other graphical parameters passed to ggplot.
-#' 
+#'
 #' @import ggplot2
 #' @importFrom stats terms
 #' @method plot amce
@@ -804,30 +804,29 @@ plot.amce <- function(x,
     p <- p + scale_colour_discrete(" ")
   }
 
+  theme_bw1 <- function(base_size = text.size, base_family = "") {
+    theme_grey(base_size = base_size, base_family = base_family) %+replace%
+      theme(
+        axis.text.x = element_text(
+          size = base_size * .9, colour = text.color, hjust = .5, vjust = 1
+        ),
+        axis.text.y = element_text(
+          size = base_size, colour = text.color,
+          hjust = 0, vjust = .5, family = font.family
+        ),
+        axis.ticks = element_line(colour = "grey50"),
+        axis.title.y = element_text(
+          size = base_size, angle = 90,
+          vjust = .01, hjust = .1, family = font.family
+        ),
+        plot.title = element_text(face = "bold", family = font.family),
+        legend.position = "none"
+      )
+  }
+  
   # colour scheme
   # if no theme specified, use default
   if (is.null(plot.theme)) {
-    theme_bw1 <- function(base_size = text.size, base_family = "") {
-      theme_grey(base_size = base_size, base_family = base_family) %+replace%
-        theme(
-          axis.text.x = element_text(
-            size = base_size * .9, colour = text.color, hjust = .5, vjust = 1
-          ),
-          axis.text.y = element_text(
-            size = base_size, colour = text.color,
-            hjust = 0, vjust = .5, family = font.family
-          ),
-          axis.ticks = element_line(colour = "grey50"),
-          axis.title.y = element_text(
-            size = base_size, angle = 90,
-            vjust = .01, hjust = .1, family = font.family
-          ),
-          plot.title = element_text(
-            face = "bold", family = font.family
-          ), legend.position = "none"
-        )
-    }
-
     p <- p + theme_bw1()
     print(p)
   } else if (is.null(class(plot.theme))) {
@@ -837,27 +836,6 @@ plot.amce <- function(x,
         "Using default theme\n"
       )
     )
-    theme_bw1 <- function(base_size = text.size, base_family = "") {
-      theme_grey(base_size = base_size, base_family = base_family) %+replace%
-        theme(
-          axis.text.x = element_text(
-            size = base_size * .9, colour = text.color, hjust = .5, vjust = 1
-          ),
-          axis.text.y = element_text(
-            size = base_size, colour = text.color,
-            hjust = 0, vjust = .5, family = font.family
-          ),
-          axis.ticks = element_line(colour = "grey50"),
-          axis.title.y = element_text(
-            size = base_size, angle = 90,
-            vjust = .01, hjust = .1, family = font.family
-          ),
-          plot.title = element_text(
-            face = "bold", family = font.family
-          ), legend.position = "none"
-        )
-    }
-
     p <- p + theme_bw1()
     print(p)
   } else if (class(plot.theme)[1] != "theme") {
@@ -867,29 +845,8 @@ plot.amce <- function(x,
         "Using default theme\n"
       )
     )
-    theme_bw1 <- function(base_size = text.size, base_family = "") {
-      theme_grey(base_size = base_size, base_family = base_family) %+replace%
-        theme(
-          axis.text.x = element_text(
-            size = base_size * .9, colour = text.color, hjust = .5, vjust = 1
-          ),
-          axis.text.y = element_text(
-            size = base_size, colour = text.color,
-            hjust = 0, vjust = .5, family = font.family
-          ),
-          axis.ticks = element_line(colour = "grey50"),
-          axis.title.y = element_text(
-            size = base_size, angle = 90,
-            vjust = .01, hjust = .1, family = font.family
-          ),
-          plot.title = element_text(face = "bold", family = font.family),
-          legend.position = "none"
-        )
-    }
-
     p <- p + theme_bw1()
     print(p)
-
     # otherwise use the user-passed theme
   } else {
     p <- p + plot.theme
@@ -928,4 +885,6 @@ plot.amce <- function(x,
     }
     cat(resp.message, "\n")
   }
+  
+  return(p)
 }
